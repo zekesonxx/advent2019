@@ -4,7 +4,12 @@ use std::io::{self, prelude::*, BufReader};
 /// Input: mass
 /// Returns: fuel, counting the fuel required for the fuel itself
 fn fuel(mass: isize) -> isize {
-    (mass/3)-2
+    let f = (mass/3)-2;
+    if f > 0 {
+        f+fuel(f)
+    } else {
+        0
+    }
 }
 
 fn main() -> io::Result<()> {
@@ -24,9 +29,8 @@ mod tests {
     use super::*;
     #[test]
     fn fuel_examples() {
-        assert_eq!(fuel(12), 2);
         assert_eq!(fuel(14), 2);
-        assert_eq!(fuel(1969), 654);
-        assert_eq!(fuel(100756), 33583);
+        assert_eq!(fuel(1969), 966);
+        assert_eq!(fuel(100756), 50346);
     }
 }
